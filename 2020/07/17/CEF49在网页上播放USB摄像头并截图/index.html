@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="/img/fluid.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -44,8 +44,6 @@
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
 
-  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.28.0/plugins/line-numbers/prism-line-numbers.min.css" />
-
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
 
@@ -74,7 +72,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"xing.re","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":30,"cursorChar":"_","loop":false,"scope":["home","post"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"C++"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"f9efeefef8c316c1720013551da02706","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"xing.re","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":["home","post"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"C++"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"f9efeefef8c316c1720013551da02706","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -283,11 +281,11 @@
               <div class="markdown-body">
                 
                 <p>chromium 52才开始支持<code>navigator.mediaDevices.getUserMedia()</code>这个API，49也没有<code>navigator.getUserMedia()</code>这个接口，但是有个<code>navigator.webkitGetUserMedia()</code>，可以参考<a target="_blank" rel="noopener" href="https://davidwalsh.name/browser-camera">这里</a>。<br>首先来枚举所有的音视频设备：  </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">navigator.mediaDevices.enumerateDevices().then(x=&gt;&#123;...&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight nim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nim">navigator.mediaDevices.enumerateDevices().then(x=&gt;<span class="hljs-meta">&#123;...&#125;</span>)<br></code></pre></td></tr></table></figure>
 <p>找到数组中kind是<code>videoinput</code>的deviceId然后用deviceId来获取一个stream：  </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">navigator.webkitGetUserMedia(&#123;video: deviceId&#125;, 成功回调, 失败回调);</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">navigator.webkit<span class="hljs-constructor">GetUserMedia(&#123;<span class="hljs-params">video</span>: <span class="hljs-params">deviceId</span>&#125;, 成功回调, 失败回调)</span>;<br></code></pre></td></tr></table></figure>
 <p>然后转换成一个url传递给video标签来播放:  </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">video.src = window.webkitURL.createObjectURL(stream);</span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">video.src</span> = window.webkitURL.createObjectURL(stream)<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
 <p>如果只有一个摄像头直接用 <code>navigator.webkitGetUserMedia(&#123;video: true&#125;, 成功回调, 失败回调);</code>也行，获取stream的时候也可以指定一些类似于宽高的属性，MDN都有。<br>截图到canvas弄成base64网上有代码就不写了。<br>期间遇到了点问题，比较低版本的cef不支持<code>--unsafely-treat-insecure-origin-as-secure</code>选项导致http链接不能用media device相关的接口，后面虽然有个pr修了但是我也懒得去照着pr改了直接把<code>SecurityPolicy::isOriginWhiteListedTrustworthy</code>改成了永远返回true，这样所有链接都会当成安全链接了（主要是懒得每次用cef都得开这个破选项还这么长）。<br>另外要用<code>navigator.webkitGetUserMedia()</code>还需要再cefclient的命令行上加上<code>--enable-media-stream</code>选项，这个破选项也是我对着代码理了一大顿才找到的，用老版本的东西真是坑爹。</p>
 
                 
@@ -590,8 +588,6 @@
   });
 </script>
 
-
-  <script  src="https://lib.baomitu.com/prism/1.28.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
 
   <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
 
