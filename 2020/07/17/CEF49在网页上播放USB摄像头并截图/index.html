@@ -24,7 +24,7 @@
 <meta property="og:description" content="chromium 52才开始支持navigator.mediaDevices.getUserMedia()这个API，49也没有navigator.getUserMedia()这个接口，但是有个navigator.webkitGetUserMedia()，可以参考这里。首先来枚举所有的音视频设备：   1navigator.mediaDevices.enumerateDevices().then(">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-17T08:49:50.000Z">
-<meta property="article:modified_time" content="2022-10-13T14:07:01.340Z">
+<meta property="article:modified_time" content="2022-11-19T10:34:41.378Z">
 <meta property="article:author" content="网事如风">
 <meta property="article:tag" content="CEF">
 <meta property="article:tag" content="webkitGetUserMedia">
@@ -281,11 +281,11 @@
               <div class="markdown-body">
                 
                 <p>chromium 52才开始支持<code>navigator.mediaDevices.getUserMedia()</code>这个API，49也没有<code>navigator.getUserMedia()</code>这个接口，但是有个<code>navigator.webkitGetUserMedia()</code>，可以参考<a target="_blank" rel="noopener" href="https://davidwalsh.name/browser-camera">这里</a>。<br>首先来枚举所有的音视频设备：  </p>
-<figure class="highlight nim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nim">navigator.mediaDevices.enumerateDevices().then(x=&gt;<span class="hljs-meta">&#123;...&#125;</span>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript">navigator.<span class="hljs-property">mediaDevices</span>.<span class="hljs-title function_">enumerateDevices</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">x</span>=&gt;</span>&#123;...&#125;)<br></code></pre></td></tr></table></figure>
 <p>找到数组中kind是<code>videoinput</code>的deviceId然后用deviceId来获取一个stream：  </p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">navigator.webkit<span class="hljs-constructor">GetUserMedia(&#123;<span class="hljs-params">video</span>: <span class="hljs-params">deviceId</span>&#125;, 成功回调, 失败回调)</span>;<br></code></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript">navigator.<span class="hljs-title function_">webkitGetUserMedia</span>(&#123;<span class="hljs-attr">video</span>: deviceId&#125;, 成功回调, 失败回调);<br></code></pre></td></tr></table></figure>
 <p>然后转换成一个url传递给video标签来播放:  </p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">video.src</span> = window.webkitURL.createObjectURL(stream)<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript">video.<span class="hljs-property">src</span> = <span class="hljs-variable language_">window</span>.<span class="hljs-property">webkitURL</span>.<span class="hljs-title function_">createObjectURL</span>(stream);<br></code></pre></td></tr></table></figure>
 <p>如果只有一个摄像头直接用 <code>navigator.webkitGetUserMedia(&#123;video: true&#125;, 成功回调, 失败回调);</code>也行，获取stream的时候也可以指定一些类似于宽高的属性，MDN都有。<br>截图到canvas弄成base64网上有代码就不写了。<br>期间遇到了点问题，比较低版本的cef不支持<code>--unsafely-treat-insecure-origin-as-secure</code>选项导致http链接不能用media device相关的接口，后面虽然有个pr修了但是我也懒得去照着pr改了直接把<code>SecurityPolicy::isOriginWhiteListedTrustworthy</code>改成了永远返回true，这样所有链接都会当成安全链接了（主要是懒得每次用cef都得开这个破选项还这么长）。<br>另外要用<code>navigator.webkitGetUserMedia()</code>还需要再cefclient的命令行上加上<code>--enable-media-stream</code>选项，这个破选项也是我对着代码理了一大顿才找到的，用老版本的东西真是坑爹。</p>
 
                 

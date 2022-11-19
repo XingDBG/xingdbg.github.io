@@ -240,7 +240,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/11/19/macOS-13-Ventura-%E4%BF%AE%E6%94%B9hosts%E6%96%87%E4%BB%B6/" target="_self">
         <div>
-          M2芯片的笔记本升级macOS 13后发现无法修改hosts文件，过去直接sudo vim /etc/hosts就可以修改，升级之后修改了保存失败，禁用SIP或者进安全模式都没有作用。在升级macOS 13之前可以修改，而且intel芯片的笔记本升级了macOS 13修改也没问题，把我整郁闷了。最后问了一大顿终于找到了方法，其实很简单，只需要用chflags命令去掉文件的不可修改属性就可以了。
+          shellM2芯片的笔记本升级macOS 13后发现无法修改hosts文件，过去直接sudo vim /etc/hosts就可以修改，升级之后修改了保存失败，禁用SIP或者进安全模式都没有作用。在升级macOS 13之前可以修改，而且intel芯片的笔记本升级了macOS 13修改也没问题，把我整郁闷了。最后问了一大顿终于找到了方法，其实很简单，只需要用chflags命令去掉文件的不可修改属性就
         </div>
       </a>
 
