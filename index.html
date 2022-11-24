@@ -232,6 +232,48 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2022/11/24/frida-PC%E7%AB%AF%E4%B8%8Eserver%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/" target="_self">
+          frida PC端与server通信方式
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/24/frida-PC%E7%AB%AF%E4%B8%8Eserver%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/" target="_self">
+        <div>
+          原来以为frida -U走的是啥USB协议，翻了一下源码发现不是。frida-server默认会在安卓上监听27042端口,PC 端会先连接这个端口，然后通过websocket协议协商出一个随机的端口用来做后面的通信。至于为啥要费这么大劲用ws来做通信我也没想明白。连接安卓端的端口并不是直接的TCP连接，而是连接本机的5037端口，这个端口是adb server的默认端口，然后用adb的协议命令来
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-24 22:13" pubdate>
+              2022-11-24
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/frida/">#frida</a>
+            
+              <a href="/tags/android/">#android</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2022/11/19/macOS-13-Ventura-%E4%BF%AE%E6%94%B9hosts%E6%96%87%E4%BB%B6/" target="_self">
           macOS 13 Ventura 修改hosts文件
         </a>
