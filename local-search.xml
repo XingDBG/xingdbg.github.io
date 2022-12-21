@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>使用cilium/ebpf开发Android eBPF程序</title>
+    <link href="/2022/12/21/%E4%BD%BF%E7%94%A8cilium-ebpf%E5%BC%80%E5%8F%91Android-eBPF%E7%A8%8B%E5%BA%8F/"/>
+    <url>/2022/12/21/%E4%BD%BF%E7%94%A8cilium-ebpf%E5%BC%80%E5%8F%91Android-eBPF%E7%A8%8B%E5%BA%8F/</url>
+    
+    <content type="html"><![CDATA[<p>最近捣鼓了一下在PC上开发Android的eBPF程序，最开始想用libbpf+bpftool，但是发现bpftool只支持linux，虽然生成skel.h头文件的功能是平台无关的，只是读取和解析文件而已。自己尝试一直了一下gen命令的代码，发现比较麻烦就放弃了，但因为平时主要用的还是Win和mac系统，总是切虚拟机里用linux太烦了，就找了下有没有别的方法，于是就有了写篇文章。流水账记录一下，有疏漏欢迎指正。<br>最开始测试cilium&#x2F;ebpf框架的时候，bpf2go命令是不支持win的，但是稍微改一下就可以了，于是就改了一下并给cilium&#x2F;ebpf提了个pr，目前已经合并进去了。<br><a href="https://github.com/junjiexing/android_ebpf_test">代码</a>修改自cilium&#x2F;ebpf的example：<a href="https://github.com/cilium/ebpf/tree/master/examples/ringbuffer">ringbuf</a>。<br>测试编译环境：</p><ol><li>Windows 10 + MSYS2 MinGW64 + Go 1.19</li><li>macOS 13.0.1<br>Linux就不测试了，跟mac一样本来就可以，懒得搞了。</li></ol><p>后来<a href="https://github.com/feicong">非虫</a>大佬告诉我说<a href="https://github.com/libbpf/libbpf-bootstrap">libbpf-bootstrap</a>用xmake可以交叉编译到android上，不过似乎没有生成skel.h，不知道是怎么做到的，有空得看看。<br>另外<a href="https://github.com/aya-rs/aya">rust aya</a>也支持在linux和mac上编译到android，win上不行，大概看了一眼，应该是用了标准库中unix命名空间下的东西，不知道能不能也修改一下支持win，有时间得试试。  </p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>cilium</tag>
+      
+      <tag>eBPF</tag>
+      
+      <tag>Android</tag>
+      
+      <tag>Windows</tag>
+      
+      <tag>macOS</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>frida PC端与server通信方式</title>
     <link href="/2022/11/24/frida-PC%E7%AB%AF%E4%B8%8Eserver%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/"/>
     <url>/2022/11/24/frida-PC%E7%AB%AF%E4%B8%8Eserver%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/</url>
